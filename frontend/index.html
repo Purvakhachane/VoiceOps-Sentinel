@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VoiceOps Sentinel</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Real-Time Call Intelligence</p>
+          <h1>VoiceOps Sentinel</h1>
+        </div>
+        <div class="status-pill" id="serviceStatus">Checking service</div>
+      </section>
+
+      <section class="workspace">
+        <aside class="control-panel">
+          <label class="upload-zone" for="audioInput">
+            <span class="upload-icon">+</span>
+            <span class="upload-title">Upload support call</span>
+            <span class="upload-copy">MP3, WAV, FLAC, M4A, OGG, or WebM</span>
+          </label>
+          <input id="audioInput" type="file" accept=".mp3,.wav,.flac,.m4a,.ogg,.webm,.mp4,.mpeg,.mpga,audio/*" />
+          <audio id="audioPlayer" controls></audio>
+          <div class="record-controls">
+            <button id="recordButton" type="button">Record</button>
+            <button id="stopButton" type="button" disabled>Stop</button>
+          </div>
+          <button id="analyzeButton" type="button">Analyze Call</button>
+          <div class="live-panel">
+            <div class="section-heading compact">
+              <h2>Live Transcript</h2>
+              <button id="liveButton" type="button">Start</button>
+            </div>
+            <textarea id="liveTranscript" placeholder="Live speech appears here. You can also paste a call transcript with lines like Agent: ... and Customer: ..."></textarea>
+            <button id="analyzeTranscriptButton" type="button">Analyze Transcript</button>
+          </div>
+          <p class="mode-note" id="modeNote">Real audio is analyzed through OpenAI when an API key is configured; otherwise WAV uses the local Windows recognizer.</p>
+          <div class="metric-grid">
+            <div>
+              <span>Turns</span>
+              <strong id="turnMetric">-</strong>
+            </div>
+            <div>
+              <span>PII Hits</span>
+              <strong id="piiMetric">-</strong>
+            </div>
+            <div>
+              <span>Latency</span>
+              <strong id="latencyMetric">-</strong>
+            </div>
+            <div>
+              <span>Mode</span>
+              <strong id="modeMetric">-</strong>
+            </div>
+          </div>
+        </aside>
+
+        <section class="insights">
+          <div class="summary-band">
+            <h2>Manager Summary</h2>
+            <p id="summaryText">Upload a call to generate the QA summary, sentiment shifts, and follow-up work.</p>
+          </div>
+
+          <div class="split">
+            <section>
+              <h2>Action Items</h2>
+              <ul id="actionList" class="action-list"></ul>
+            </section>
+            <section>
+              <h2>Sentiment Events</h2>
+              <ul id="sentimentList" class="event-list"></ul>
+            </section>
+          </div>
+
+          <section>
+            <div class="section-heading">
+              <h2>Redacted Transcript</h2>
+              <button id="copyButton" type="button">Copy</button>
+            </div>
+            <div id="transcript" class="transcript"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
